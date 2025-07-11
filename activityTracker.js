@@ -18,3 +18,25 @@ so going outside and exerting myself in anyway sounds unpleasant.
 - The creative category (reading, drawing, baking) will probably be the most frequent.
 - I expect higher enjoyment in the afternoon or evening compared to morning.
 */
+
+function totalPhysicalHours(log) {
+  return log
+    .filter(entry => entry.category === "physical") // get only physical activities
+    .reduce((sum, entry) => sum + entry.hoursSpent, 0); // total the hours
+}
+
+function averageEveningEnjoyment(log) {
+  const eveningActivities = log.filter(entry => entry.timeOfDay === "evening");
+  const totalEnjoyment = eveningActivities.reduce((sum, entry) => sum + entry.enjoyment, 0);
+  return (eveningActivities.length > 0) ? (totalEnjoyment / eveningActivities.length).toFixed(1) : 0;
+}
+
+function lowEffortHighEnjoyment(log) {
+  return log
+    .filter(entry => entry.hoursSpent <= 1.5 && entry.enjoyment >= 8)
+    .map(entry => entry.activity);
+}
+
+console.log("Total hours on physical activities:", totalPhysicalHours(myWeek));
+console.log("Average evening enjoyment:", averageEveningEnjoyment(myWeek));
+console.log("Low-effort, high-enjoyment activities:", lowEffortHighEnjoyment(myWeek));
