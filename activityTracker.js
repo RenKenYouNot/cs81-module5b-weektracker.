@@ -37,6 +37,21 @@ function lowEffortHighEnjoyment(log) {
     .map(entry => entry.activity);
 }
 
+
+// Custom higher-order function
+function filterByCondition(testFn) {
+  return myWeek.filter(testFn); // This is a higher-order function: it accepts another function to define the filtering condition
+}
+
+// Examples using filterByCondition:
+console.log("Short & high-enjoyment:", filterByCondition(
+  act => act.hoursSpent <= 1.5 && act.enjoyment >= 8
+));
+
+console.log("Afternoon activities:", filterByCondition(
+  act => act.timeOfDay === "afternoon"
+));
+
 console.log("Total hours on physical activities:", totalPhysicalHours(myWeek));
 console.log("Average evening enjoyment:", averageEveningEnjoyment(myWeek));
 console.log("Low-effort, high-enjoyment activities:", lowEffortHighEnjoyment(myWeek));
